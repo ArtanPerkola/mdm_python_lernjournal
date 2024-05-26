@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator by perkoart</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Calculator by perkoart</h1>
+        <form id="calculatorForm" action="/calculate" method="post">
+            <div class="form-group">
+                <label for="num1">First Number:</label>
+                <input type="number" step="any" class="form-control" id="num1" name="num1" required>
+            </div>
+            <div class="form-group">
+                <label for="num2">Second Number:</label>
+                <input type="number" step="any" class="form-control" id="num2" name="num2" required>
+            </div>
+            <div class="form-group">
+                <label for="operation">Operation:</label>
+                <select class="form-control" id="operation" name="operation" required>
+                    <option value="add">Addition</option>
+                    <option value="subtract">Subtraction</option>
+                    <option value="multiply">Multiplication</option>
+                    <option value="divide">Division</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            var num1 = document.getElementById('num1').value;
+            var num2 = document.getElementById('num2').value;
+            if (num1 === '' || num2 === '') {
+                event.preventDefault();
+                alert('Please enter both numbers');
+            }
+        });
+    </script>
+</body>
+</html>

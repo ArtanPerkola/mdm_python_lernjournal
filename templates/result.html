@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculation Result</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 50px;
+        }
+        .container {
+            max-width: 500px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Calculation Result</h1>
+        <p class="lead text-center">The result of the {{ operation }} between {{ num1 }} and {{ num2 }} is:</p>
+        <h2 class="text-center">{{ result }}</h2>
+        <div class="text-center">
+            <a href="/" class="btn btn-primary mt-3">Go back</a>
+        </div>
+    </div>
+</body>
+</html>

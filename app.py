@@ -1,33 +1,48 @@
-from flask import Flask, request, jsonify
-from flask.helpers import send_file
+from flask import Flask, request, render_template
 
-app = Flask(__name__, static_url_path='/', static_folder='web')
+app = Flask(__name__)
 
-@app.route("/")
-def indexPage():
-     return send_file("web/index.html")  
+def add(x, y):
+    return x + y
 
-from markupsafe import escape
-@app.route('/user/<username>')
-def show_user_profile(username):
-    # show the user profile for that user
-    return f'User {escape(username)}'
+def subtract(x, y):
+    return x - y
 
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    # show the post with the given id, the id is an integer
-    return f'Post {post_id}'
+def multiply(x, y):
+    return x * y
 
-@app.route('/path/<path:subpath>')
-def show_subpath(subpath):
-    # show the subpath after /path/
-    return f'Subpath {escape(subpath)}'
+def divide(x, y):
+    if y == 0:
+        return "Error! Division by zero."
+    return x / y
 
-@app.route("/sum")
-def sum_even():
-    # flask parameters with type and default
-    n = request.args.get('n', default=1, type=int)
-    # logic
-    result = sum([x for x in range(n+1) if x % 2 == 0])
-    # return result as json
-    return jsonify(sum=result)
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+@app.route('/calculate', methods=['POST'])
+def calculate():
+    operation = request.form.get('operation')
+    num1 = float(request.form.get('num1'))
+    num2 = float(request.form.get('num2'))
+
+    if operation == 'add':
+        result = add(num1, num2)
+        operation_str = "addition"
+    elif operation == 'subtract':
+        result = subtract(num1, num2)
+        operation_str = "subtraction"
+    elif operation == 'multiply':
+        result = multiply(num1, num2)
+        operation_str = "multiplication"
+    elif operation == 'divide':
+        result = divide(num1, num2)
+        operation_str = "division"
+    else:
+        result = "Invalid operation"
+        operation_str = "unknown operation"
+
+    return render_template('result.html', result=result, num1=num1, num2=num2, operation=operation_str)
+
+if __name__ == '__main__':
+    app.run(debug=True)
